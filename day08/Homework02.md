@@ -14,7 +14,7 @@ public class Homework02 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		double [] dArr = new double [4];
-		System.out.println("정수 입력: ");
+		System.out.println("원소 입력: ");
 		dArr[0] = sc.nextDouble();
 		dArr[1] = sc.nextDouble();
 		dArr[2] = sc.nextDouble();
