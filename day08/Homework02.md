@@ -1,4 +1,4 @@
-### home work 
+### Day08_Quiz02 
 
 ```java
  double형 4칸짜리 배열을 생성하고 
