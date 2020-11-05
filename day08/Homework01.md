@@ -23,7 +23,7 @@ public class Homework01 {
 		Scanner sc = new Scanner(System.in);
 		int problem;
 		int score = 0;
-				
+		int p = 0;		
 		String pro = JOptionPane.showInputDialog(null, "몇 판? : ");
 		problem = Integer.parseInt(pro); // 판수 입력 ***** 매우 중요 
 		
@@ -36,14 +36,14 @@ public class Homework01 {
 		
 		if (answer == n1*n2) {
 			score += 100;
+			++p;
 		} else 
 			score -= 10;
 		
 		}
-		int avg = score/problem;
 		JOptionPane.showMessageDialog(null, "총: " + score);
-		JOptionPane.showMessageDialog(null, "정답률" + (int) avg + "%");
-		JOptionPane.showMessageDialog(null, avg > 80? "WIN!!" : "LOSE");
+		JOptionPane.showMessageDialog(null, "정답률" + ((double)p/problem)*100 + "%");
+		JOptionPane.showMessageDialog(null, ((double)p/problem*100) >= 80? "WIN!!" : "LOSE");
 		
 	}
 }
