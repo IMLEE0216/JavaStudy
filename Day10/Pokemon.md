@@ -1,9 +1,9 @@
 ### Pokemon
       메인메서드 : Pokemon 객체 5개짜리 배열 1개 만들기 
 			메뉴 (무한 while문 사용) 1. 포켓몬 등록
-				                   2. 모든 포켓몬 보기
-				                   3. 레벨업
-				                   0. 종료
+				                 2. 모든 포켓몬 보기
+				                 3. 레벨업
+				                 0. 종료
 			
 			loop:while(true){
 				switch(select){
@@ -12,8 +12,8 @@
 				}
 			} 
 	  1. 포켓몬 등록 - 포켓몬 이름, 레벨을 입력 받고 
-		              	체력은 레벨의 1000배, 공격은 레벨의 2배 (20% 확률로 3배) 
-			              ==> 5마리 한꺼번에 진행  혹은 1마리씩 진행 
+		           체력은 레벨의 1000배, 공격은 레벨의 2배 (20% 확률로 3배) 
+			    ==> 5마리 한꺼번에 진행  혹은 1마리씩 진행 
 		2. 모든 포켓몬 보기
 			배열에 담겨있는 모든 포켓몬의 모든 정보 출력
 		3. 레벨업
@@ -23,17 +23,12 @@
 			      (없는 이름인 경우 '미등록 포켓몬') 
 ```java
 package day10.homework;
-/*
-	
- */
 
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
 public class Homework01 {
 	public static void main(String[] args) {
-		
 		Scanner sc = new Scanner(System.in);
 		
 		Pokemon [] pk;
