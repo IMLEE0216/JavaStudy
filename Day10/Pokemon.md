@@ -129,7 +129,7 @@ public class Homework01 {
 								e.power = e.level*3;
 							}	
 							System.out.println(e.pkname + " 레벨업!");
-							
+							break;
 						} else {
 							System.out.println("미등록포켓몬");
 							break;
