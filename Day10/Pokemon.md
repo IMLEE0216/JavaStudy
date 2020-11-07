@@ -40,7 +40,8 @@ public class Homework01 {
 		System.out.println("Pokemon 등록 먼저 해야 합니다.");
 		
 		while (true) {
-			System.out.println( "Menu:\n 1: Poketmon 등록 \n 2: 모든포켓몬 보기 \n 3: 레벨업\n 4: 개인 레벨업\n 5: 이름 레벨업\n 0:종료");   
+			System.out.println( "Menu:\n 1: Poketmon 등록 \n 2: 모든포켓몬 보기 \n 3: 레벨업\n 
+						     4: 개인 레벨업\n 5: 이름 레벨업\n 0:종료");   
 			int num = sc.nextInt(); 
 			
 			switch(num) {
