@@ -145,6 +145,9 @@ public class Homework01 {
 				 
 					 
 			}
+			default: 
+					 System.out.println("다시 입력해주세요.");
+					 break;
 		 } //switch
 	}//while
 	}// main
