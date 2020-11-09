@@ -115,13 +115,15 @@ public class Homework01 {
 					
 					}
 			//===========================이름레벨업==========================
-				 case 5: {
-					for (Pokemon e: pk) {
-						System.out.println("레벨업 할 포켓몬 이름을 입력하세요");
+				  case 5: {
+					 System.out.println("레벨업 할 포켓몬 이름을 입력하세요");
 						String upname = sc.next();
-						if (e.pkname.equals(upname)) {
-							e.level++;
+						boolean find = false;
+					 for (Pokemon e: pk) {
+						if (e.pkname.equals(upname)) { //String 일때 ==은 안된다.
+							++e.level;
 							e.hp = e.level*1000;
+							
 							int p = (int)(Math.random()*10)+1;
 							if (p < 8) {
 								 e.power = e.level*2; 
@@ -129,15 +131,20 @@ public class Homework01 {
 								e.power = e.level*3;
 							}	
 							System.out.println(e.pkname + " 레벨업!");
+							find = true;
 							break;
-						} else {
-							System.out.println("미등록포켓몬");
-							break;
-						}
-						
+							
+							
 						} 
-					
-			} //case5
+						}
+					 if (!find) { //find==false
+							System.out.println("미등록포켓몬");
+							
+						} 
+					 break;
+				 
+					 
+			}
 		 } //switch
 	}//while
 	}// main
