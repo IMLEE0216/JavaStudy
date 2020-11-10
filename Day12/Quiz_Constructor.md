@@ -107,7 +107,7 @@ public static void main(String[] args) {
     등급: B
 
 
-### Pokemon 클래스 필드 생성자 메서드
+### Pokemon Cla Fie Con Meth
  ```java
 //Pokemon 클래스 
 //멤버변수 : name, level, hp(체력), ap(공격력)
