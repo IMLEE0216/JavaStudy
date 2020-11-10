@@ -136,11 +136,7 @@ public class Pokemon {
 		this.name =name;
 		this.level = level;
 		hp = level*1000;
-		if ((int)(Math.random()*10) > 2) {
-			ap = level*1.5;
-		} else {
-			ap = level*2;
-		}
+		ap = Math.random() > 0.2? ap*1.5 : ap*2;
 	}
 	
 //===================================================================================	
