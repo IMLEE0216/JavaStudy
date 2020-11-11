@@ -1,6 +1,24 @@
 ### Student_Quiz_Constructor
 
+ 	클래스 : Student
+	 필드 : 이름, 국, 영, 수, 평균, 등급
+ 	메소드 : 
+  	 0) 생성자:
+   		student(String name) : name 만 저장
+   		student(int k, int e, int m) : name은 "없음", 국여수는 k,e,m 값을 저장. 평균, 등급도 계산되어 저장
+   		Student(String name, int k, int e, int m) : 이름,국영수는 name, k, e, m 값을 저장. 평균, 등급도 계산되어 저장
+  	 1) setData() : 이름, 국, 영, 수를 인자값으로 받아, 해당 필드에 모두 저장
+ 	  2) setMean() : 객체가 가지고 있는 국, 영, 수를 가지고 평균을 계산하여 평균 필드에 저장
+  	 3) setGrade() : 객체가 가지고 있는 평균을 가지고 등급을 저장 
+     		 90이상 : A
+		80이상 ~ 90미만 : B
+      		70이상 ~ 80미만 : C
+      		60이상 ~ 70미만 : D
+     		 60미만 : F
+	  4) printData() : 객체의 모든 정보(이름, 국, 영, 수, 평균, 등급)를 sysout
 ```java
+package day11.quiz.메소드;
+
 public class Student { //클래스 Student 생성
 	
 	//create field
@@ -9,66 +27,76 @@ public class Student { //클래스 Student 생성
 	int en;
 	int ma;
 	double avg;
-	char grade; 
+	String grade = "F"; //String형으로 바꿔라 나중에 A+이라는게 나올수 있으니깐  //F를 기본값으로 
 	
 	
 	//Constructor
+	Student() {
+		
+	}
 	Student (String name) {
 		this.name = name;
 	}
 	Student (int k, int e, int m){
-		kr = k;
-		en = e;
-		ma = m;
-		avg = setMean(); //(kr+en+ma)/3.0
-		grade = setGrade();
+		this(null, k , e, m); //밑에 생성자한테 일을 떠맡김
 		}
 
 	Student (String name, int k, int e, int m){
-		this.name = name;
-		kr=k;
-		en=e;
-		ma=m;
-		avg = setMean(); //(kr+en+ma)/3.0
-		grade = setGrade();
+		setData(name, k, e, m);
+//		this.name = name;
+//		kr=k;
+//		en=e;
+//		ma=m;
+//		setMean(); //(kr+en+ma)/3.0
+//		grade = setGrade();
+		
 	}
 	
 	
-	//create method
-	void setData(String n, int k, int e, int m) {
+	//Method
+	void setData(String n, int k, int e, int m) { //데이터에 다 넣어주면 생성자에서 편함
 		name = n;
 		kr = k;
 		en = e;
 		ma = m; //해당필드에 저장
+		setMean(); //(kr+en+ma)/3.0 
+//		grade = setGrade();
 		return;
 	}
-	double setMean() {
-		return avg = (kr+en+ma)/3.0;
+	void setMean() {
+		avg = (kr+en+ma)/3.0;
+		setGrade(); //여기에 넣으면 자동으로 학점도 계산
 	}
-	char setGrade() {
+	String setGrade() {  //switch문을 써도 된다. 더 쉬움 return이 더 나음(밑에 명령이 없으면)
 		if (avg >= 90.0) {
-			grade = 'A';
+			grade = "A";
 		} else if (avg >= 80) {
-			grade ='B';
+			grade ="B";
 		} else if (avg >= 70) {
-			grade = 'C';
+			grade = "C";
 		} else if (avg >= 60) {
-			grade = 'D';
+			grade = "D";
 		} else {
-			grade = 'F';
+			grade = "F";
 		} return grade;
 	}
 	
-	void printData() {
-		System.out.println("이름: " + name);
-		System.out.println("국어: " + kr);
-		System.out.println("영어: " + en);
-		System.out.println("수학: " + ma);
-		System.out.println("평균: " + avg);
-		System.out.println("등급: " + grade);
+	String getData() {
+		return "이름: " + name + "\n국영수: " + kr + "," + en + "," + ma + "\n평균: " + avg + "\n등급: " + grade;
 	}
 	
+	void printData() {
+		System.out.println(getData());
+//		System.out.println("이름: " + name);
+//		System.out.println("국어: " + kr);
+//		System.out.println("영어: " + en);
+//		System.out.println("수학: " + ma);
+//		System.out.println("평균: " + avg);
+//		System.out.println("등급: " + grade);
+		}
+	
 }
+
 ```
 
 
