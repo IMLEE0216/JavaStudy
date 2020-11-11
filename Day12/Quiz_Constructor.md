@@ -109,6 +109,10 @@ public static void main(String[] args) {
 
 ### Pokemon Cla Fie Con Meth
  ```java
+package day12.quiz.메소드;
+
+import java.util.Scanner;
+
 //Pokemon 클래스 
 //멤버변수 : name, level, hp(체력), ap(공격력)
 
@@ -133,10 +137,7 @@ public class Pokemon {
 	}
 	
 	Pokemon (String name, int level){
-		this.name =name;
-		this.level = level;
-		hp = level*1000;
-		ap = Math.random() > 0.2? ap*1.5 : ap*2;
+		setInfo(name, level);
 	}
 	
 //===================================================================================	
@@ -150,16 +151,19 @@ public class Pokemon {
 		 	리턴값 : X
 		 */
 	void setInfo(String n, int lv){
-		name = n;
-		level = lv;
-		hp = lv*1000;
-		ap = Math.random() > 0.2? ap*1.5 : ap*2;
+		this.name = n;
+		this.level = lv;
+		reset(); //추가한거임
+//		setHp();
+//		setAp();
 		}
-//		if ((int)(Math.random()*10) > 2) {
-//			ap = lv*1.5;
-//		} else {
-//			ap = lv*2;
-//		}
+//	void setHp() {
+//		hp = level*1000;
+//	}
+//	void setAp() {
+//		ap = Math.random() > 0.2? level*1.5 : level*2;
+//	}
+		
 	
 		/*2. getInfo()
 			인자값 : X
@@ -176,15 +180,24 @@ public class Pokemon {
 			리턴값 : 증가된 level
 		 */
 	int levelUp() {
-		return level++;
+		++level;
+		reset();
+		return level;
 	}
+	
+	//추가메서드: 레벨기반으로 hp,ap리셋
+	void reset() {
+		hp = level*1000;
+		ap = Math.random() > 0.2? level*1.5 : level*2;
+	}
+	
 		/* 4. isAlive()
 			인자값 : X
 			하는 일 : 객체의 생사여부 확인( 체력이 0 이하면 죽음 )
 			리턴값 : 살아있으면 true, 아니면 false
 		*/
 	boolean isAlive() {
-		return alive = hp > 0? true : false;
+		return hp > 0;
 		
 	}
 		/*5. attack()
@@ -194,8 +207,32 @@ public class Pokemon {
 			리턴값 : 없음
 		 */
 	void attack(Pokemon enemy) {
-		ap = Math.random() < 0.1? ap*1.5 : ap;
-		enemy.hp -= ap;	
+		enemy.hp -=  Math.random() < 0.1? ap*1.5 : ap;
+	}
+	
+	public static void main(String[] args) {
+		Pokemon p1 = new Pokemon("피");
+		Pokemon p2 = new Pokemon("꼬",6);
+		System.out.println(p1.getInfo());
+		System.out.println(p1.isAlive());
+		
+		Scanner sc= new Scanner(System.in);
+		System.out.println("이름,레벨");
+		String name = sc.next();
+		int level = sc.nextInt();
+		p1.setInfo(name, level);
+		
+//		p1.name = sc.next(); //hp랑 ap다시 설정해야함
+		
+		p1.levelUp();
+		p1.levelUp();
+		System.out.println(p1.getInfo());
+		
+		p1.attack(p2);
+		p2.attack(p1);
+		System.out.println(p1.getInfo());
+		System.out.println(p2.hp);
 	}
 }
+```
 
