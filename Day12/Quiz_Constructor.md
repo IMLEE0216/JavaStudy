@@ -134,6 +134,42 @@ public static void main(String[] args) {
     평균: 83.33333333333333
     등급: B
 
+```java
+Student [] st = new Student [4]; //0,1,2,3
+		for (int i = 0; i < st.length; i++) {
+			System.out.println("이름을 입력: ");
+			String n = sc.next();
+			System.out.println("국,영,수: ");
+			int k = sc.nextInt();
+			int e = sc.nextInt();
+			int m = sc.nextInt();
+			
+	//==============================================
+			st[i] = new Student(); //생성자에 Student(){} 추가
+			System.out.println("이름을 입력하세요.");
+			String n = sc.next();
+			System.out.println("국어 점수: ");
+			int k = sc.nextInt();
+			System.out.println("영어 점수: ");
+			int e = sc.nextInt();
+			System.out.println("수학 점수: ");
+			int m = sc.nextInt();
+			
+			st[i].setData(n, k, e, m); 
+			st[i].setMean(); //필요없음 setData에 다 들어있음
+			st[i].setGrade();
+			
+			}
+			 for (int i = 0; i <st.length; i++) {
+				 System.out.println("=================");
+				 st[i].printData();
+				 
+			 }
+			 for (Student s: st) {
+				 s.printData();
+			 }
+	}
+```
 
 ### Pokemon Cla Fie Con Meth
  ```java
