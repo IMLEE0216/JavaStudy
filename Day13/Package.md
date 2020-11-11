@@ -201,7 +201,7 @@ public class StudentTest01 {
 		
 		s1.setKr(95);
 		s1.setEn(85);
-    System.out.println(s1.getName());
+    		System.out.println(s1.getName());
 		System.out.println(s1.getMean());
 		System.out.println(s1.getGrade());
 		
