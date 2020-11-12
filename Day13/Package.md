@@ -1,4 +1,4 @@
-### Pokemon 은닉과 캡슐 
+### Pokemon 은닉과 캡슐 getter & setter
 
 ```java
 package day12.quiz.메소드;
@@ -14,7 +14,7 @@ public class Pokemon2 {
 	private double ap; 	
 
 //===================================================================================	
-	//method
+	//method getter & setter
 	
 	public void setName(String name){
 		this.name = name;
@@ -45,7 +45,7 @@ public class Pokemon2 {
 
 }
 ```
-### getter & setter
+### 호출
 
 ```java
 package day12.quiz.메소드;
@@ -83,7 +83,7 @@ public class PokemonTest01 {
       HP: 50000
       Att: 100.0
       
-### getter & setter & import
+### import & 호출
 
 ```java
 package day13.test;
@@ -109,7 +109,7 @@ public class PokemonTest01 {
       50000
       100.0
       
-### Student 은닉과 캡슐
+### Student 은닉과 캡슐 getter & setter
 
 ```java
 package day11.quiz.메소드;
@@ -181,7 +181,7 @@ public class Student02 { //클래스 Student 생성
 	}
 }
 ```
-### getter & setter & import
+### import & 호출
 
 ```java
 package day13.test;
