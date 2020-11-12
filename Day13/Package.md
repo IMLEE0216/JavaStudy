@@ -11,7 +11,16 @@ public class Pokemon2 {
 	private String name;
 	private int level;
 	private int hp; 
-	private double ap; 	
+	private double ap; 
+//==================================================================================
+//Constructor
+	public Pokemon2 () {
+		
+	}
+	public Pokemon2 (String name, int level){
+		setName(name);
+		setLevel(level);
+	}
 
 //===================================================================================	
 	//method getter & setter
@@ -123,8 +132,23 @@ public class Student02 { //클래스 Student 생성
 	private int ma;
 	private double avg;
 	private String grade = "F"; 
+//==================================================================	
+	//Constructor
+	public Student02 (){
+	}
 	
+	public Student02 (String name) {
+		this(name,0,0,0);
+	}
 	
+	Student02 (String name, int k, int e, int m){
+		setName(name);
+		setKr(k);
+		setEn(e);
+		setMa(m);
+		setMean(); 
+	}
+//==================================================================		
 	//Method getter & setter
 	public void setName(String name) {
 		this.name = name;
