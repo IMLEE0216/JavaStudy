@@ -125,7 +125,7 @@ public class Student02 { //클래스 Student 생성
 	private String grade = "F"; 
 	
 	
-	//Method
+	//Method getter & setter
 	public void setName(String name) {
 		this.name = name;
 	}
