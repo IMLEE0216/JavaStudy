@@ -265,12 +265,9 @@ public class homework01 {
 				System.out.println("학생의 나이: ");
 				s.setAge(sc.nextInt());
 				
-				if (s.getAge() < 8) {
+				if (s.getAge() < 8 || s.getAge() > 20) {
 					System.out.println("나이를 다시 입력해주세요.");
-						} 
-				if(s.getAge() > 20){
-					System.out.println("나이를 다시 입력해주세요.");
-						}
+					} 
 			
 				if (s.getAge()>=8 && s.getAge() <= 13) {
 					ElementaryStudent e = new ElementaryStudent(s.getStname(),s.getAge(),null);
