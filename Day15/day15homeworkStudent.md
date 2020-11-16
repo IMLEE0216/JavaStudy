@@ -134,24 +134,28 @@ class ElementaryStudent extends Student{
 		}
 		public void setKr(int kr) {
 			this.kr = kr;
+			setAvg();
 		}
 		public int getEn() {
 			return en;
 		}
 		public void setEn(int en) {
 			this.en = en;
+			setAvg();
 		}
 		public int getMa() {
 			return ma;
 		}
 		public void setMa(int ma) {
 			this.ma = ma;
+			setAvg();
 		}
 		public double getAvg() {
-			return avg = (kr + en + ma)/3.0;
+			return avg;
+			
 		}
-		public void setAvg(double avg) {
-			this.avg = avg;	
+		private void setAvg() {
+			this.avg = (kr + en + ma)/3.0;
 		}
 		public String toString() {
 			return "============" +"\n이름: " + getStname() + "\n나이: " + getAge() + "\n학교명: " + getScname() 
@@ -171,7 +175,7 @@ class ElementaryStudent extends Student{
   	    ㄴ. getters
   	    ㄷ. setters
 ```java
-  class HighSchoolStudent extends Student{
+  class HighSchoolStudent extends Student{ //middle로해도됨 그럼 필드 줄일수있음
 	  //field 
 	  int kr;
 	  int en;
@@ -192,29 +196,36 @@ class ElementaryStudent extends Student{
 	}
 	public void setKr(int kr) {
 		this.kr = kr;
+		setAvg();
 	}
 	public int getEn() {
 		return en;
 	}
 	public void setEn(int en) {
 		this.en = en;
+		setAvg();
 	}
 	public int getMa() {
 		return ma;
 	}
 	public void setMa(int ma) {
 		this.ma = ma;
+		setAvg();
 	}
 	public double getAvg() {
-		getGrade();
-		return avg = (kr + en + ma)/3.0;
+		return avg;
 		
 	}
-	public void setAvg(double avg) {
-		this.avg = avg;
+	private void setAvg() {
+		this.avg = (kr + en + ma)/3.0;
+		setGrade();
 		
 	}
 	public String getGrade() {
+		return grade;
+	}
+	
+	private void setGrade() {
 		if (avg >= 90.0) {
 			grade = "A";
 		} else if (avg >= 80) {
@@ -225,11 +236,6 @@ class ElementaryStudent extends Student{
 			grade = "D";
 		} else {	
 		} 
-		return grade;
-	}
-	
-	public void setGrade(String grade) {
-		this.grade = grade;
 	}
 	public String toString() {
 		return "============" +"\n이름: " + getStname() + "\n나이: " + getAge() + "\n학교명: " + getScname() 
