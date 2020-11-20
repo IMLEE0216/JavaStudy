@@ -31,7 +31,7 @@ public class Homework01 {
 				if (words.charAt(i) == 'a') { //a개수 만큼 증가
 					++count;
 				} 
-        if(words.charAt(i) == ',' || words.charAt(i) == '.') { //특수문자 다 넣어야하나...
+     			if(words.charAt(i) == ',' || words.charAt(i) == '.') { //특수문자 다 넣어야하나...
 					continue;
 				}
 //			if (words.charAt(i) == ' ' || words.charAt(i) == '\n'){ //이거없어도 문자의 개수는 잘 입력된다. 왜지?
@@ -106,7 +106,7 @@ public class Homework02 {
 	public static boolean settingPw(String pw) {
 		if (pw.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{4,20}$")) {
 //			              -------  ---------------------  ---------  ----------  -----
-//			              	뭔지모름		  특수문자 포함			소문자		대문자	최소4자 최대20자     $는 뭘까?
+//			              뭔지모름      특수문자 포함	      소문자     대문자  최소4자 최대20자     $는 뭘까?
 			return true; //이것들 충족하면 true
 		}
 		return false; 
@@ -152,7 +152,7 @@ public class Homework02 {
 	
 	System.out.println("ID: " + id.substring(0, id.indexOf('@') ));
 	System.out.println("Password: " + pw.substring(0, 2)+pw.substring(2).replaceAll("[a-z]|[A-Z]|[$@#!%*?&]|[0-9]", "*"));
-//																					------------reg-------------- , 요걸로
+//		                                                                        ------------reg-------------- , 요걸로
 	System.out.println("email: " + id);
 	} //main
 }//class
