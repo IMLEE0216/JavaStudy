@@ -59,12 +59,12 @@ class Nation{
 	@Override
 	public String toString() {
 		return "===============\n" + "Nation: " + getNation() + 
-									"\nCapital: " + getCapital() + 
-									"\nPopulation: " + df.format(getPopulation());
+					"\nCapital: " + getCapital() + 
+					"\nPopulation: " + df.format(getPopulation());
 	}
 	public String showInfo() {
 		return "===============\n" + "Capital: " + getCapital() + 
-									"\nPopulation: " + df.format(getPopulation());
+					"\nPopulation: " + df.format(getPopulation());
 	}
 
 }
@@ -97,9 +97,9 @@ public class homework01 {
 			}//case 0
 			case "1": {			
 				nations.add(new Nation(JOptionPane.showInputDialog("Nation: "),
-										JOptionPane.showInputDialog("Capital: "),
-										Integer.parseInt(JOptionPane.showInputDialog("Population: "))));
-							break;
+							JOptionPane.showInputDialog("Capital: "),
+							Integer.parseInt(JOptionPane.showInputDialog("Population: "))));
+				break;
 			} //case 1
 			case "2":{
 				for (Nation n : nations) {
