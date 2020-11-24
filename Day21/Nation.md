@@ -85,6 +85,7 @@ public class homework01 {
 		ArrayList<Nation> nations = new ArrayList<Nation>();
 		String menu;
 		String select;
+
 		menu = "=====MENU=====" + "\n1. Add Nation" + "\n2.Show All Info" + "\n3. Search" + "\n0. Exit";
 		
 		while (true) {
@@ -96,18 +97,22 @@ public class homework01 {
 			}//case 0
 			case "1": {			
 				nations.add(new Nation(JOptionPane.showInputDialog("Nation: "),
-							JOptionPane.showInputDialog("Capital: "),
-							Integer.parseInt(JOptionPane.showInputDialog("Population: "))));
-				break;
+						JOptionPane.showInputDialog("Capital: "),
+						Integer.parseInt(JOptionPane.showInputDialog("Population: "))));
+				continue;
 			} //case 1
 			case "2":{
 				for (Nation n : nations) {
 					JOptionPane.showMessageDialog(null, n.toString());
-				continue;
+					continue;
 				}
+//				if (a == -1) {
+//						JOptionPane.showMessageDialog(null, "등록된 정보 없음");
+//					}
 				break;
 			} //case 2
 			case "3":{
+//				case "3":{
 				for (int i = 0; i < nations.size(); i++) {
 					String s = JOptionPane.showInputDialog("Name of Nation: ");
 					if (nations.get(i).equals(s)) {
@@ -115,9 +120,11 @@ public class homework01 {
 						break;
 					} else {
 						JOptionPane.showMessageDialog(null, nations.get(i).showInfo());
+						break;
 					}
 					}
 						break;
+				
 					}//case 3
 			}//Switch
 		}//While
