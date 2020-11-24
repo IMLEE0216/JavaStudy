@@ -85,7 +85,6 @@ public class homework01 {
 		ArrayList<Nation> nations = new ArrayList<Nation>();
 		String menu;
 		String select;
-		int a = -1;
 		menu = "=====MENU=====" + "\n1. Add Nation" + "\n2.Show All Info" + "\n3. Search" + "\n0. Exit";
 		
 		while (true) {
@@ -104,12 +103,8 @@ public class homework01 {
 			case "2":{
 				for (Nation n : nations) {
 					JOptionPane.showMessageDialog(null, n.toString());
-					a++;
-					break;
+				continue;
 				}
-				if (a == -1) {
-						JOptionPane.showMessageDialog(null, "등록된 정보 없음");
-					}
 				break;
 			} //case 2
 			case "3":{
