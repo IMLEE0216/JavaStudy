@@ -1,10 +1,10 @@
 ### Words_HashMap
 
         String menu = "1. 단어 추가\n" 
-				            + "2. 단어 검색\n" 
-				            + "3. 모든 단어 보기\n"
-				            + "4. 퀴즈 풀기 \n"
-				            + "0. 종료\n입력 : ";
+		    + "2. 단어 검색\n" 
+		    + "3. 모든 단어 보기\n"
+		    + "4. 퀴즈 풀기 \n"
+		    + "0. 종료\n입력 : ";
 
 
         1 : 영단어, 그의 뜻(한글) 을 입력 받고 단어장(Map)에 저장
@@ -40,13 +40,13 @@ public class Homework02 {
 				break loop;
 			case "1": {
 				if (null == words) {
-					return;
+				return;
 				}
 				w = JOptionPane.showInputDialog("영단어");
 				k = JOptionPane.showInputDialog("단어 뜻");
 				if (w.isEmpty() || k.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "등록 불가");
-					break;
+				JOptionPane.showMessageDialog(null, "등록 불가");
+				break;
 				} 
 				words.put(w, k);
 				JOptionPane.showMessageDialog(null, "등록 완료");
@@ -55,11 +55,11 @@ public class Homework02 {
 			case "2": {
 				String s = JOptionPane.showInputDialog("단어 검색");
 				if (null == s) {
-					JOptionPane.showMessageDialog(null, "취소하셨습니다.");
-					break;
+				JOptionPane.showMessageDialog(null, "취소하셨습니다.");
+				break;
 				}
-					JOptionPane.showMessageDialog(null, words.containsKey(s)? words.get(s) : "미등록 단어");
-					break;
+				JOptionPane.showMessageDialog(null, words.containsKey(s)? words.get(s) : "미등록 단어");
+				break;
 				}
 			case "3": {
 				if (words.isEmpty()) {
@@ -68,12 +68,12 @@ public class Homework02 {
 				}
 				StringBuffer message = new StringBuffer("단어 리스트\n");
 				for(Entry<String, String> entry : words.entrySet()){
-					String key = entry.getKey();
-					String value = entry.getValue();
-					message.append((key+ ":  " +value)  + "\n");
-					}
-					JOptionPane.showMessageDialog(null, message);
-					break;
+				String key = entry.getKey();
+				String value = entry.getValue();
+				message.append((key+ ":  " +value)  + "\n");
+				}
+				JOptionPane.showMessageDialog(null, message);
+				break;
 				}
 			case "4": {
 				ArrayList<String> list = new ArrayList<>(words.values());
