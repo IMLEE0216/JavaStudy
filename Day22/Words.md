@@ -76,7 +76,8 @@ public class Homework02 {
 				break;
 				}
 			case "4": {
-				ArrayList<String> list = new ArrayList<>(words.values());
+				List<String> list = new ArrayList<>(words.values());
+				//https://surhommejk.tistory.com/222
 				String q = list.get((int)(Math.random()*list.size()));
 				String ans = JOptionPane.showInputDialog(q +"(은)는 영어로?");
 				JOptionPane.showMessageDialog(null, q.equals(words.get(ans))? "정답!" : "오답!");
