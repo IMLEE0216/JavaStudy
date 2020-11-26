@@ -84,14 +84,14 @@
 	}
 ```
 ```java
-	public boolean confirmPassword(String password) throws MySingupPolicy {
-		if(null == this.password) {
-			throw new MySingupPolicy("비밀번호가 설정되어있지 않습니다.");
-			//throw new MySingupPolicy("비밀번호가 설정되어있지 않습니다.");
-		}
+public boolean confirmPassword(String password) throws MySingupPolicy {
+	if(null == this.password) {
+		throw new MySingupPolicy("비밀번호가 설정되어있지 않습니다.");
+		//throw new MySingupPolicy("비밀번호가 설정되어있지 않습니다.");
+	}
 
-		return this.password.equals(password);
-	} 
+	return this.password.equals(password);
+} 
 ```
 ```java
 public class homework_Exception {
