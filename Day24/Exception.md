@@ -48,8 +48,9 @@
 			}
 		}
 		if(null == suffix) {
-			throw new MySingupPolicy("com, co.kr, net, org 포함해야 합니다");  //////// 이런 부분 
+			throw new MySingupPolicy(java.util.Arrays.toString(Whitelist.VALID_MAIL_SUFFIXES) + "포함해야 합니다");  //////// 이런 부분 
 			//throw new MySingupPolicy(Whitelist.VALID_MAIL_SUFFIXES + "포함해야 합니다");
+			// java.util.Arrays.toString(Whitelist.VALID_MAIL_SUFFIXES) 이렇게 해야 값이 나온다.
 		}
 		
 		// 메일서버(naver, gmail, hanmail 등) 이름을 포함해야 한다.
@@ -61,8 +62,9 @@
 			}
 		}
 		if(!check) {
-			throw new MySingupPolicy("naver, gmail, hanmail, nate 포함해야 합니다");
-			//throw new MySingupPolicy(Whitelist.VALID_MAIL_SERVER_NAMES + "포함해야 합니다");
+			throw new MySingupPolicy(java.util.Arrays.toString(Whitelist.VALID_MAIL_SERVER_NAMES) +"포함해야 합니다");
+			//throw new MySingupPolicy(Whitelist.VALID_MAIL_SERVER_NAMES + "포함해야 합니다"); //해쉬값이 나옴
+			//throw new MySingupPolicy(java.util.Arrays.toString(Whitelist.VALID_MAIL_SERVER_NAMES) + "포함해야 합니다"); //이래야 naver 
 		}
 		this.email = email;
 		setId();
