@@ -1,4 +1,4 @@
-### 학생 관리 시스템
+### 학생 관리 프로그램
 
           < 학생 관리 프로그램 >
            step 1. 다음 학생들의 정보를 Map 에 저장하세요. (TreeMap<Integer,HashMap<String,Object>>)
