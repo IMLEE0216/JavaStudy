@@ -17,7 +17,7 @@
 		
 		// null comparison
 		if(null == email) {
-			return false;
+			throw new MySignupPolicyExcepton("이메일이 누락되었습니다.");
 		}
 		
 		
@@ -88,8 +88,8 @@
 ```java
 public boolean confirmPassword(String password) throws MySingupPolicy {
 	if(null == this.password) {
-		throw new MySingupPolicy("비밀번호가 설정되어있지 않습니다.");
-		//throw new MySingupPolicy("비밀번호가 설정되어있지 않습니다.");
+		throw new MySignupPolicyExcepton("두 번째 비밀번호가 누락되었습니다.");
+		//throw new MySignupPolicyExcepton("두 번째 비밀번호가 누락되었습니다.");
 	}
 
 	return this.password.equals(password);
@@ -119,35 +119,23 @@ public class homework_Exception {
 		
 		
 		
-		while(true) {
+		while (true) {
 			try {
 				System.out.print("비밀번호 : ");
 				String password = sc.next();
-				if(!user.setPassword(password)) {
-					continue;
-				}
-				break;
-			} catch (MySingupPolicy e) {
-				System.out.println("잘못된 비밀번호 형식입니다.");
-				System.out.println(e.getMessage());
+				User01.setPassword(password);
 				
-			}
-				
-		}		
-		while(true) {	
-			try {
 				System.out.print("한 번 더 : ");
 				String temp = sc.next();
-				if(!user.confirmPassword(temp)) {
-					System.out.println("비밀번호가 같지 않습니다.");
+				if (!User01.confirmPassword(temp)) {
+					System.out.println("두 비밀번호가 일치하지 않습니다.");
 					continue;
 				}
 				break;
-			} catch (MySingupPolicy e) {
+			} catch (MySignupPolicyExcepton e) {
 				System.out.println(e.getMessage());
 			}
-			break;
-			}
+		}
 		
 				
 	
