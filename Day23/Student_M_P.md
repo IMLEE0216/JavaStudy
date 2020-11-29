@@ -177,11 +177,36 @@ private void menu01() { //학번 검색
 
 
 private void menu02() { // 연락처 뒷 번호 검색
-//아몰라~~~~	
-}
+	String num = JOptionPane.showInputDialog("전화번호 뒷자리").trim();
+	String last = null;
+	for (Entry<Integer, HashMap<String, Object>> st : students.entrySet()) {
+		last = st.getValue().get("contact").toString().substring(9);
+		if (num.equals(last)) {
+			JOptionPane.showMessageDialog(null, Info(st.getKey())); //getkey = 왼 //get value = 오	
+			return;	
+		}
+		}
+	if (!last.equals(num)) {
+		JOptionPane.showMessageDialog(null, "없는 번호");
+	}
+} 
+
 
 private void menu03() { //1등 보기
-//아몰라~~~~	
+	TreeMap<Integer, HashMap<String, Object>> zero = new TreeMap<Integer, HashMap<String, Object>>();
+	zero.put(0, new HashMap<String, Object>());
+	zero.get(0).put("average", 0);
+	for (Entry<Integer, HashMap<String, Object>> s : zero.entrySet()) {
+	for (Entry<Integer, HashMap<String, Object>> st : students.entrySet()) {
+		if(((Integer) st.getValue().get("average")) > ((Integer)s.getValue().get("average"))){
+				s = st;
+				continue;	
+		}
+			JOptionPane.showMessageDialog(null, Info(s.getKey()));
+			break;
+		}	
+	}
+	
 }
 
 
