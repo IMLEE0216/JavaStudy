@@ -97,8 +97,11 @@ public class Homework01 {
 		load();
 		try {
 			while (true) {
-			select = JOptionPane
-					.showInputDialog("1. 단어 추가 \n" + "2. 단어 검색 \n" + "3. 모든 단어 보기 \n" + "4. 퀴즈 \n" + "0. 종료");
+			select = JOptionPane.showInputDialog("1. 단어 추가 \n" 
+							   + "2. 단어 검색 \n"
+							   + "3. 모든 단어 보기 \n"
+							   + "4. 퀴즈 \n"
+							   + "0. 종료");
 			if (select == null) {
 				JOptionPane.showMessageDialog(null, "취소하셨습니다.");
 				return;
