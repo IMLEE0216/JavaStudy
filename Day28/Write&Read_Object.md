@@ -82,8 +82,8 @@ public class Homework01 {
 		if (w == null || m == null) {
 			JOptionPane.showMessageDialog(null, "메뉴로 돌아갑니다.");
 		} else {
-			w.trim();
-			m.trim();
+			w = w.trim();
+			m = m.trim();
 			map.put(w, m);
 			JOptionPane.showMessageDialog(null, "저장 완료!");
 		}		
