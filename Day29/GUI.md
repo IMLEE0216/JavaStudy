@@ -29,6 +29,7 @@ import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -41,8 +42,10 @@ class MyButton extends JButton {
 	private JTextArea textArea;
 	private JLabel label1;
 	private static int total = 0;
-	
 
+	
+	
+	
 	public MyButton(String menuName, int price, JTextArea textArea, JLabel label1) {
 		super(menuName); // ??
 		this.menuName = menuName;
@@ -61,10 +64,37 @@ class MyButton extends JButton {
 			label1.setText("총액: " + dcf.format(total) + "원");
 			textArea.append(menuName + ":  " + price + "원    " + df.format(new Date()) + "\n");
 			
+			
+			
 		}
 	};
+
+private void save() {
+	try (FileOutputStream fOut = new FileOutputStream("sell.txt");
+			ObjectOutputStream oOut = new ObjectOutputStream(fOut);){
+			oOut.writeObject(textArea);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 }
 
+private void load() {
+	try (FileInputStream fIn = new FileInputStream("sell.txt"); 
+			ObjectInputStream oIn = new ObjectInputStream(fIn);) { 
+					
+		try {
+			textArea = (JTextArea)oIn.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	} catch (FileNotFoundException e) {
+		e.printStackTrace();
+	} catch (IOException e) {
+		e.printStackTrace();
+	} 
+}
+}
 public class Homework01 extends JFrame implements Runnable{
 	SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd_HH:mm:ss", Locale.KOREA);
 	private Map<String, Integer> btn = new HashMap<>();
@@ -84,31 +114,8 @@ public class Homework01 extends JFrame implements Runnable{
 	private JLabel label2 = new JLabel();
 
 	
-	private void save() {
-		try (FileOutputStream fOut = new FileOutputStream("sell.txt");
-				ObjectOutputStream oOut = new ObjectOutputStream(fOut);){
-				oOut.writeObject(textArea);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void load() {
-		try (FileInputStream fIn = new FileInputStream("sell.txt"); 
-				ObjectInputStream oIn = new ObjectInputStream(fIn);) { 
-						
-			try {
-				textArea = (JTextArea)oIn.readObject();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-	}
+
 	@Override
 	public void run() {
 		label2.setText(df.format(new Date()));
@@ -164,7 +171,6 @@ public class Homework01 extends JFrame implements Runnable{
 	}
 
 	private void initDownPanel () {
-	
 		downPanel.setLayout(new GridLayout(1, 2));
 		label1.setHorizontalTextPosition(JLabel.LEFT);
 		label2.setHorizontalAlignment(JLabel.RIGHT);
@@ -191,6 +197,62 @@ public class Homework01 extends JFrame implements Runnable{
 		Thread thread = new Thread();
 		thread.start();
 		
+		
+//		==================================================================================
+		upbtn1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try (FileOutputStream fOut = new FileOutputStream("sell.txt");
+						ObjectOutputStream oOut = new ObjectOutputStream(fOut);){
+						oOut.writeObject(textArea);
+						textArea.setText(null);
+				} catch (Exception a) {
+					a.printStackTrace();
+				}
+				
+			}
+		});
+		
+		upbtn2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try (FileInputStream fIn = new FileInputStream("sell.txt"); 
+						ObjectInputStream oIn = new ObjectInputStream(fIn);) { 	
+					try {
+						textArea = (JTextArea)oIn.readObject();
+					} catch (ClassNotFoundException a) {
+						a.printStackTrace();
+					}
+//					textArea.setText(oIn);
+
+				} catch (FileNotFoundException a) {
+					a.printStackTrace();
+				} catch (IOException a) {
+					a.printStackTrace();
+				} 
+				
+			}
+		});
+		upbtn3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, label1);
+				try (FileOutputStream fOut = new FileOutputStream("sell.txt");
+						ObjectOutputStream oOut = new ObjectOutputStream(fOut);){
+						oOut.writeObject(textArea);
+						textArea.setText(null);
+				} catch (Exception a) {
+					a.printStackTrace();
+				}
+				
+			}
+		});
+		
+//		==================================================================================
+		
 		add(leftMenuPanel, BorderLayout.WEST);
 		add(upMenuPanel, BorderLayout.NORTH);
 		add(downPanel, BorderLayout.SOUTH);
@@ -202,4 +264,5 @@ public class Homework01 extends JFrame implements Runnable{
 		new Homework01();
 	}
 }
+
 ```
