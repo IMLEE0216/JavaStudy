@@ -5,26 +5,17 @@
 package day29.homework;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,213 +23,235 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
-
-class MyButton extends JButton {
-	SimpleDateFormat df = new SimpleDateFormat("YYYYMMdd_HHmmss", Locale.KOREA);
-	DecimalFormat dcf = new DecimalFormat("#,###");
+class MyButton01 extends JButton {
 	private String menuName;
 	private int price;
-	private JTextArea textArea;
-	private JLabel label1;
-	private static int total = 0;
 
-	
-	
-	
-	public MyButton(String menuName, int price, JTextArea textArea, JLabel label1) {
-		super(menuName); // ??
+	MyButton01(String menuName, int price) {
+		super(menuName);
 		this.menuName = menuName;
 		this.price = price;
-		this.textArea = textArea;
-		this.label1 = label1;
-		this.addActionListener(listener);
-		label1.setText("총액: " + dcf.format(total) + "원");
-	
 	}
 
-	ActionListener listener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			total += price;
-			label1.setText("총액: " + dcf.format(total) + "원");
-			textArea.append(menuName + ":  " + price + "원    " + df.format(new Date()) + "\n");
-			
-			
-			
-		}
-	};
+	public String getMenuName() {
+		return menuName;
+	}
 
-
-}
-public class Homework01 extends JFrame implements Runnable{
-	SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd_HH:mm:ss", Locale.KOREA);
-	private Map<String, Integer> btn = new HashMap<>();
-
-	private JPanel leftMenuPanel = new JPanel();
-
-	private JPanel upMenuPanel = new JPanel();
-	private JButton upbtn1 = new JButton("저장하기"); //
-	private JButton upbtn2 = new JButton("불러오기"); //
-	private JButton upbtn3 = new JButton("결제하기"); //
-
-	private JPanel centerPanel = new JPanel();
-	private JTextArea textArea = new JTextArea();
-
-	private JPanel downPanel = new JPanel();
-	private JLabel label1 = new JLabel();
-	private JLabel label2 = new JLabel();
-
+	public int getPrice() {
+		return price;
+	}
 	
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		return String.format("%-30s%-10s%s\n", menuName, new DecimalFormat("#,###").format(price), sdf.format(System.currentTimeMillis()));
+	}
+	
+}
 
+public class Homework01POS선생님 extends JFrame implements Runnable, ActionListener{  
 
+	private static final int NUMBER_MENU = 5;
+	
+	private static final String[] NAMES_MENU = {"아메리카노", "카페라떼", "카푸치노", "바닐라라떼", "카라멜 마끼아또"};
+	private static final int[] PRICES_MENU = {3000, 3500, 3800, 4200, 4500};
+	
+	
+	private JButton saveBtn, loadBtn, payBtn;
+	private MyButton01[] coffeeBtns = new MyButton01[NUMBER_MENU];
+	private JTextArea textArea;
+	private JLabel totalLabel;
+	private JLabel timeLabel;
+	
+	private int totalPrice = 0;
+	
+	
 	@Override
 	public void run() {
-		label2.setText(df.format(new Date()));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		while(true) {
 			
+			timeLabel.setText(sdf.format(System.currentTimeMillis()));
 			try {
 				Thread.sleep(1000);
-				
-				
-			} catch (Exception e) {
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		MyButton01 btn = (MyButton01)e.getSource();
+		textArea.setText(textArea.getText() + btn.toString());
+		totalPrice += btn.getPrice();
+		totalLabel.setText("총 결제액 : " +  new DecimalFormat("#,###").format(totalPrice) +"원");
 	}
 	
 	
-	private void menuPrice() {
-		btn.put("아메리카노", 3000);
-		btn.put("카푸치노", 3500);
-		btn.put("카페라떼", 3500);
-		btn.put("바닐라라떼", 4000);
-		btn.put("카라멜마끼아또", 4000);
-	}
-
-	private void initLeftMenuPanel() {
-		menuPrice();
-		leftMenuPanel.setLayout(new GridLayout(btn.size(), 1));
-		for (Entry<String, Integer> e : btn.entrySet()) {
-			leftMenuPanel.add(new MyButton(e.getKey(), e.getValue(), textArea, label1));
-		}
-
-	}
-
-	private void initCenterPanel() {
-		centerPanel.setLayout(null);
-		textArea.setBounds(0, 0, 1030, 660);
-		textArea.setBackground(Color.WHITE);
-		textArea.setFont(new Font("맑은고딕", Font.BOLD, 15));
-		textArea.setEditable(false); // edit금지 글을 쓸 수 없음
-		centerPanel.add(textArea);
-
-	}
-
-	private void initUpMenuPanel() {
-		LayoutManager layout = new FlowLayout(FlowLayout.CENTER, 100, 20);
-		upMenuPanel.add(upbtn1);
-		upMenuPanel.add(upbtn2);
-		upMenuPanel.add(upbtn3);
-		upMenuPanel.setBackground(Color.WHITE);
-		upMenuPanel.setLayout(layout);
-
-	}
-
-	private void initDownPanel () {
-		downPanel.setLayout(new GridLayout(1, 2));
-		label1.setHorizontalTextPosition(JLabel.LEFT);
-		label2.setHorizontalAlignment(JLabel.RIGHT);
-		downPanel.add(label1);
-		downPanel.add(label2);
-
-	}
-
-	public Homework01() {
-		super("과제");
-		setSize(1200, 800);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);// 가운데 띄우기
-
-		LayoutManager layout = null;
-		layout = new BorderLayout(10, 20);
-		setLayout(layout);
-
-		initLeftMenuPanel();
-		initUpMenuPanel();
-		initCenterPanel();
-		initDownPanel();
+	
+	private JPanel initNorth() { // 저장하기, 불러오기, 결제하기
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
 		
-		Thread thread = new Thread();
-		thread.start();
+		saveBtn = new JButton("저장하기");
+		loadBtn = new JButton("불러오기");
+		payBtn = new JButton("결제하기");
 		
+		panel.add(saveBtn);
+		panel.add(loadBtn);
+		panel.add(payBtn);
 		
-//		==================================================================================
-		upbtn1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try (FileOutputStream fOut = new FileOutputStream("sell.txt");
-						ObjectOutputStream oOut = new ObjectOutputStream(fOut);){
-						oOut.writeObject(textArea);
-						textArea.setText(null);
-				} catch (Exception a) {
-					a.printStackTrace();
-				}
-				
-			}
-		});
-		
-		upbtn2.addActionListener(new ActionListener() {
+		saveBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try (FileInputStream fIn = new FileInputStream("sell.txt"); 
-						ObjectInputStream oIn = new ObjectInputStream(fIn);) { 	
+				FileWriter fWriter = null;
+				try {
+					
+					fWriter = new FileWriter("sell.txt", true);
+					fWriter.append(textArea.getText());
+					fWriter.append(new DecimalFormat("#,###").format(totalPrice) +"\n");
+					JOptionPane.showMessageDialog(null, "저장완료");
+					textArea.setText(null);
+					totalPrice = 0;
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} finally {
 					try {
-						textArea = (JTextArea)oIn.readObject();
-					} catch (ClassNotFoundException a) {
-						a.printStackTrace();
+						if(fWriter != null)
+							fWriter.close();
+					}catch (Exception e1) {
+			
+						e1.printStackTrace();
 					}
-//					textArea.setText(oIn);
-
-				} catch (FileNotFoundException a) {
-					a.printStackTrace();
-				} catch (IOException a) {
-					a.printStackTrace();
-				} 
+					
+				}
+				
 				
 			}
 		});
-		upbtn3.addActionListener(new ActionListener() {
+		
+		loadBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, label1);
-				try (FileOutputStream fOut = new FileOutputStream("sell.txt");
-						ObjectOutputStream oOut = new ObjectOutputStream(fOut);){
-						oOut.writeObject(textArea);
-						textArea.setText(null);
-				} catch (Exception a) {
-					a.printStackTrace();
+				FileReader fReader = null;
+				Scanner sc = null;
+				StringBuffer sb = new StringBuffer();
+				try {
+					fReader = new FileReader("sell.txt");
+					sc = new Scanner(fReader);
+					while (sc.hasNext()) {
+						sb.append(sc.nextLine() + "\n");
+					}
+					textArea.setText(sb.toString());
+					
+				}catch (Exception e1) {
+					e1.printStackTrace();
+				} finally {
+					try {
+						if (sc != null)
+							sc.close();
+						if (fReader != null)
+							fReader.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
-				
 			}
 		});
 		
-//		==================================================================================
+		payBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FileWriter fWriter = null;
+				try {
+					
+					fWriter = new FileWriter("sell.txt", true);
+					fWriter.append(textArea.getText());
+					fWriter.append(new DecimalFormat("#,###").format(totalPrice) +"\n");
+					JOptionPane.showMessageDialog(null, totalPrice + "원   저장완료");
+					textArea.setText(null);
+					totalPrice = 0;
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} finally {
+					try {
+						if(fWriter != null)
+							fWriter.close();
+					}catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+		});
+		return panel;
+	}
+
+	private JPanel initWest() { // 메뉴버튼
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(NUMBER_MENU, 1));
+		for(int i = 0; i < coffeeBtns.length; ++i) {
+			coffeeBtns[i] = new MyButton01(NAMES_MENU[i], PRICES_MENU[i]);
+			coffeeBtns[i].addActionListener(this);
+			panel.add(coffeeBtns[i]);
+			
+		}
+		return panel;
+	}
+
+	private JPanel initCenter() { // 주문 내역
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1,1));
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		panel.add(textArea);
+		return panel;
+	}
+
+	private JPanel initSouth() { // 총 결제액, 시간
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 2));
 		
-		add(leftMenuPanel, BorderLayout.WEST);
-		add(upMenuPanel, BorderLayout.NORTH);
-		add(downPanel, BorderLayout.SOUTH);
-		add(centerPanel, BorderLayout.CENTER);
+		totalLabel = new JLabel("총 결제액 : 0원");
+		totalLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+		
+		timeLabel = new JLabel("2020-12-07 13:25:43");
+		timeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+		timeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		panel.add(totalLabel);
+		panel.add(timeLabel);
+		return panel;
+	}
+
+	public Homework01POS선생님() {
+		super("커피 주문 관리 프로그램");
+		
+		setSize(1200, 800);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		
+		setLayout(new BorderLayout());
+		
+		add(initNorth(), BorderLayout.NORTH);
+		add(initCenter(), BorderLayout.CENTER);
+		add(initSouth(), BorderLayout.SOUTH);
+		add(initWest(), BorderLayout.WEST);
+		
+		
+		new Thread(this).start();
 		setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		new Homework01();
+		new Homework01POS선생님();
 	}
 }
+
 
 ```
