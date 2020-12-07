@@ -50,7 +50,7 @@ class MyButton01 extends JButton {
 	
 }
 
-public class Homework01POS선생님 extends JFrame implements Runnable, ActionListener{  
+public class Homework01 extends JFrame implements Runnable, ActionListener{  
 
 	private static final int NUMBER_MENU = 5;
 	
@@ -229,7 +229,7 @@ public class Homework01POS선생님 extends JFrame implements Runnable, ActionLi
 		return panel;
 	}
 
-	public Homework01POS선생님() {
+	public Homework01() {
 		super("커피 주문 관리 프로그램");
 		
 		setSize(1200, 800);
@@ -249,7 +249,7 @@ public class Homework01POS선생님 extends JFrame implements Runnable, ActionLi
 	}
 
 	public static void main(String[] args) {
-		new Homework01POS선생님();
+		new Homework01();
 	}
 }
 
