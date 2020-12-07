@@ -50,7 +50,7 @@ class MyButton01 extends JButton {
 	
 }
 
-public class Homework01 extends JFrame implements Runnable, ActionListener{  
+public class Homework01POS선생님 extends JFrame implements Runnable, ActionListener{  
 
 	private static final int NUMBER_MENU = 5;
 	
@@ -92,6 +92,7 @@ public class Homework01 extends JFrame implements Runnable, ActionListener{
 	
 	
 	private JPanel initNorth() { // 저장하기, 불러오기, 결제하기
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMdd_HHmm");
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
 		
@@ -110,7 +111,7 @@ public class Homework01 extends JFrame implements Runnable, ActionListener{
 				FileWriter fWriter = null;
 				try {
 					
-					fWriter = new FileWriter("sell.txt", true);
+					fWriter = new FileWriter(sdf.format(System.currentTimeMillis()) + ".txt");
 					fWriter.append(textArea.getText());
 					fWriter.append(new DecimalFormat("#,###").format(totalPrice) +"\n");
 					JOptionPane.showMessageDialog(null, "저장완료");
@@ -141,7 +142,8 @@ public class Homework01 extends JFrame implements Runnable, ActionListener{
 				Scanner sc = null;
 				StringBuffer sb = new StringBuffer();
 				try {
-					fReader = new FileReader("sell.txt");
+					String readfile = JOptionPane.showInputDialog("불러오기 파일\n예)YYYYMMdd_HHmm.txt");
+					fReader = new FileReader(readfile);
 					sc = new Scanner(fReader);
 					while (sc.hasNext()) {
 						sb.append(sc.nextLine() + "\n");
@@ -169,8 +171,7 @@ public class Homework01 extends JFrame implements Runnable, ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				FileWriter fWriter = null;
 				try {
-					
-					fWriter = new FileWriter("sell.txt", true);
+					fWriter = new FileWriter(sdf.format(System.currentTimeMillis()) + ".txt");
 					fWriter.append(textArea.getText());
 					fWriter.append(new DecimalFormat("#,###").format(totalPrice) +"\n");
 					JOptionPane.showMessageDialog(null, totalPrice + "원   저장완료");
@@ -229,7 +230,7 @@ public class Homework01 extends JFrame implements Runnable, ActionListener{
 		return panel;
 	}
 
-	public Homework01() {
+	public Homework01POS선생님() {
 		super("커피 주문 관리 프로그램");
 		
 		setSize(1200, 800);
@@ -249,9 +250,8 @@ public class Homework01 extends JFrame implements Runnable, ActionListener{
 	}
 
 	public static void main(String[] args) {
-		new Homework01();
+		new Homework01POS선생님();
 	}
 }
-
 
 ```
