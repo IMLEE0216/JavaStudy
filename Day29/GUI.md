@@ -69,31 +69,7 @@ class MyButton extends JButton {
 		}
 	};
 
-private void save() {
-	try (FileOutputStream fOut = new FileOutputStream("sell.txt");
-			ObjectOutputStream oOut = new ObjectOutputStream(fOut);){
-			oOut.writeObject(textArea);
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-}
 
-private void load() {
-	try (FileInputStream fIn = new FileInputStream("sell.txt"); 
-			ObjectInputStream oIn = new ObjectInputStream(fIn);) { 
-					
-		try {
-			textArea = (JTextArea)oIn.readObject();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-	} catch (FileNotFoundException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-	} 
-}
 }
 public class Homework01 extends JFrame implements Runnable{
 	SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd_HH:mm:ss", Locale.KOREA);
