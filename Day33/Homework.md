@@ -78,7 +78,7 @@ CREATE TABLE member (
 	id VARCHAR(30) NOT NULL UNIQUE,
 	password VARCHAR(30),
 	email VARCHAR(40) UNIQUE,
-	type INT(1),
+	type INT(1) DEFAULT 1 CHECK (type >=1 AND type <= 4),
 	point INT(9) DEFAULT 1000 CHECK (point > 0)
 	);
 		
