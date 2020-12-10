@@ -36,7 +36,7 @@ MariaDB [testdb]> SELECT name, level FROM pokemon ORDER BY level DESC;
 7. 레벨이 3이상인 모든 포켓몬들의 이름, 레벨 보여줘. 레벨 많은 순으로, 같은 레벨이면 이름 오름차순으로 보여줘  (ORDER BY)
 MariaDB [testdb]> INSERT INTO pokemon VALUES(NULL, '거북왕', 100, 1200, 200, DEFAULT);
 거북왕 추가
-MariaDB [testdb]> SELECT name, level FROM pokemon WHERE level >=3 ORDER BY level, name;
+MariaDB [testdb]> SELECT name, level FROM pokemon WHERE level >=3 ORDER BY level DESC, name;
 ```
 
 ```sql
