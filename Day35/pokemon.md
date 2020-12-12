@@ -107,52 +107,50 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Pokemon02 {
-	private static final String URL = "jdbc:mysql://127.0.0.1/testdb?useUnicode=true&characterEncoding=utf8";
-	private static final String ID = "testdba";
-	private static final String PASSWORD = "test1234";
-	private Connection connection;
-	private PreparedStatement preparedStatement;
-	private ResultSet resultSet;
+   private static final String URL = "jdbc:mysql://127.0.0.1/testdb?useUnicode=true&characterEncoding=utf8";
+   private static final String ID = "testdba";
+   private static final String PASSWORD = "test1234";
+   private Connection connection;
+   private PreparedStatement preparedStatement;
+   private ResultSet resultSet;
 
-	public Pokemon02() throws SQLException {
-		connection = DriverManager.getConnection(URL, ID, PASSWORD);
-		String pkname = null;
-		boolean b1 = true;
-		while (b1) {
-			pkname = JOptionPane.showInputDialog("포켓몬 검색");
-			preparedStatement = connection.prepareStatement("SELECT * FROM pokemon WHERE NAME = " + "'" + pkname + "'");
-			resultSet = preparedStatement.executeQuery(); // select 쓸 때
-			loop: if (resultSet.next()) {
-				int no = resultSet.getInt(1);
-				String name = resultSet.getString(2);
-				int level = resultSet.getInt(3);
-				int hp = resultSet.getInt(4);
-				double ap = resultSet.getDouble(5);
-				String regdate = resultSet.getString(6);
-
-				String message = no + ".  " + name + "\n레벨: " + level + "\n체력: " + hp + "\n공격력: " + ap + "\n등록일 : "
-						+ regdate;
-				JOptionPane.showMessageDialog(null, message);
-				break;
-
+   public Pokemon02() throws SQLException {
+	connection = DriverManager.getConnection(URL, ID, PASSWORD);
+	String pkname = null;
+	boolean b1 = true;
+	while (b1) {
+		pkname = JOptionPane.showInputDialog("포켓몬 검색");
+		preparedStatement = connection.prepareStatement("SELECT * FROM pokemon WHERE NAME = " + "'" + pkname + "'");
+		resultSet = preparedStatement.executeQuery(); // select 쓸 때
+		loop: if (resultSet.next()) {
+			int no = resultSet.getInt(1);
+			String name = resultSet.getString(2);
+			int level = resultSet.getInt(3);
+			int hp = resultSet.getInt(4);
+			double ap = resultSet.getDouble(5);
+			String regdate = resultSet.getString(6);
+				String message = no + ".  " + name + "\n레벨: " 
+						    + level + "\n체력: " + hp
+						    + "\n공격력: " + ap + "\n등록일 : "
+					+ regdate;
+			JOptionPane.showMessageDialog(null, message);
+			break;
 			} else if (pkname.equals(null)) {
-				b1 = false;
-			} else {
-				JOptionPane.showMessageDialog(null, "미등록포켓몬");
-				break loop;
-			}
-
+			b1 = false;
+		} else {
+			JOptionPane.showMessageDialog(null, "미등록포켓몬");
+			break loop;
 		}
-
-	}
-
-	public static void main(String[] args) {
-		try {
-			new Pokemon02();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
+
+public static void main(String[] args) {
+   try {
+	new Pokemon02();
+   } catch (SQLException e) {
+		e.printStackTrace();
+	}
+   }
 }
 
 ```
@@ -220,101 +218,101 @@ public class Pokemon03GUI extends JFrame {
 		apArea.setEditable(false);
 	}
 
-	private void initSouthPanel() {
-		southPanel.setLayout(new FlowLayout());
-		southPanel.add(btn1);
-		southPanel.add(btn2);
-
-		btn1.addActionListener(new ActionListener() {
-			String name;
-			int level;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					name = nameField.getText();
-					level = Integer.parseInt(levelField.getText());
-					int hp = level * 100;
-					double ap = level * 0.5;
-					if (name.equals("")) {
-						JOptionPane.showMessageDialog(null, "포켓몬 이름 입력하세요.");
-					} 
-					
-					if (level <= 0) {
-						JOptionPane.showMessageDialog(null, "레벨은 0 보다 위!");
-					} else {
-						hpArea.setText(Integer.toString(hp));
-						apArea.setText(Double.toString(ap));
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "레벨을 입력하세요.");
-				}
+private void initSouthPanel() {
+	southPanel.setLayout(new FlowLayout());
+	southPanel.add(btn1);
+	southPanel.add(btn2);
+	
+	btn1.addActionListener(new ActionListener() {
+		String name;
+		int level;
+			
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				name = nameField.getText();
+				level = Integer.parseInt(levelField.getText());
+				int hp = level * 100;
+				double ap = level * 0.5;
+				if (name.equals("")) {
+					JOptionPane.showMessageDialog(null, "포켓몬 이름 입력하세요.");
+				} 
 				
-			}
-		});
-
-		btn2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (nameField.getText().equals("") || levelField.getText().equals(Integer.toString(0)) || levelField.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "저장 할 수 없음");
-				} else if (Integer.parseInt(levelField.getText())*100 != Integer.parseInt(hpArea.getText())){
-					JOptionPane.showMessageDialog(null, "계산 후 저장");
+				if (level <= 0) {
+					JOptionPane.showMessageDialog(null, "레벨은 0 보다 위!");
 				} else {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String date = sdf.format(System.currentTimeMillis());
-					String url = "jdbc:mysql://127.0.0.1/testdb";
-					String id = "testdba";
-					String password = "test1234";
-					PreparedStatement preparedStatement = null;
-					Connection connection = null;
+					hpArea.setText(Integer.toString(hp));
+					apArea.setText(Double.toString(ap));
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "레벨을 입력하세요.");
+			}
+			
+		}
+	});
 
-					String sql = "INSERT INTO pokemon(no, name, level, hp, ap, regdate) VALUES(?, ?, ?, ?, ?, ?)";
+	btn2.addActionListener(new ActionListener() {
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (nameField.getText().equals("") || levelField.getText().equals(Integer.toString(0)) || levelField.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "저장 할 수 없음");
+			} else if (Integer.parseInt(levelField.getText())*100 != Integer.parseInt(hpArea.getText())){
+				JOptionPane.showMessageDialog(null, "계산 후 저장");
+			} else {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String date = sdf.format(System.currentTimeMillis());
+				String url = "jdbc:mysql://127.0.0.1/testdb";
+				String id = "testdba";
+				String password = "test1234";
+				PreparedStatement preparedStatement = null;
+				Connection connection = null;
+				
+				String sql = "INSERT INTO pokemon(no, name, level, hp, ap, regdate) VALUES(?, ?, ?, ?, ?, ?)";
+				
+				try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				
+				connection = DriverManager.getConnection(url, id, password);
+					
+					preparedStatement = connection.prepareStatement(sql);
+					preparedStatement.setInt(1, 0);
+					preparedStatement.setString(2, nameField.getText());
+					preparedStatement.setInt(3, Integer.parseInt(levelField.getText()));
+					preparedStatement.setInt(4, Integer.parseInt(hpArea.getText()));
+					preparedStatement.setDouble(5, Double.parseDouble(apArea.getText()));
+					preparedStatement.setString(6, date);
+					
+					preparedStatement.executeUpdate();
+					JOptionPane.showMessageDialog(null, nameField.getText() + "  저장완료");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "중복된 포켓몬");
+				} catch (ClassNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (NullPointerException e1) {
+					e1.printStackTrace();
+				} catch (NumberFormatException e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "레벨 입력 후 계산을 누르세요.");
+				} 
+				finally {
+					// 접속 종료
 					try {
-						Class.forName("com.mysql.cj.jdbc.Driver");
-
-						connection = DriverManager.getConnection(url, id, password);
-						
-						preparedStatement = connection.prepareStatement(sql);
-						preparedStatement.setInt(1, 0);
-						preparedStatement.setString(2, nameField.getText());
-						preparedStatement.setInt(3, Integer.parseInt(levelField.getText()));
-						preparedStatement.setInt(4, Integer.parseInt(hpArea.getText()));
-						preparedStatement.setDouble(5, Double.parseDouble(apArea.getText()));
-						preparedStatement.setString(6, date);
-
-						preparedStatement.executeUpdate();
-						JOptionPane.showMessageDialog(null, nameField.getText() + "  저장완료");
+						if (preparedStatement != null)
+							preparedStatement.close();
+						if (connection != null)
+							connection.close();
 					} catch (SQLException e1) {
 						e1.printStackTrace();
-						JOptionPane.showMessageDialog(null, "중복된 포켓몬");
-					} catch (ClassNotFoundException e1) {
-						e1.printStackTrace();
-					} catch (NullPointerException e1) {
-						e1.printStackTrace();
-					} catch (NumberFormatException e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(null, "레벨 입력 후 계산을 누르세요.");
-					} 
-					finally {
-						// 접속 종료
-						try {
-							if (preparedStatement != null)
-								preparedStatement.close();
-							if (connection != null)
-								connection.close();
-						} catch (SQLException e1) {
-							e1.printStackTrace();
-						}
 					}
 				}
-				
 			}
-		});
-	}
+			
+		}
+	});
+}
 
 	public Pokemon03GUI() {
 		super("pokemonGUI");
