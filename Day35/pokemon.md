@@ -252,65 +252,64 @@ private void initSouthPanel() {
 		}
 	});
 
-	btn2.addActionListener(new ActionListener() {
+   btn2.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (nameField.getText().equals("") || levelField.getText().equals(Integer.toString(0)) || levelField.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "저장 할 수 없음");
-			} else if (Integer.parseInt(levelField.getText())*100 != Integer.parseInt(hpArea.getText())){
-				JOptionPane.showMessageDialog(null, "계산 후 저장");
-			} else {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String date = sdf.format(System.currentTimeMillis());
-				String url = "jdbc:mysql://127.0.0.1/testdb";
-				String id = "testdba";
-				String password = "test1234";
-				PreparedStatement preparedStatement = null;
-				Connection connection = null;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (nameField.getText().equals("") 
+		 || levelField.getText().equals(Integer.toString(0)) 
+		 || levelField.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "저장 할 수 없음");
+		} else if (Integer.parseInt(levelField.getText())*100 != Integer.parseInt(hpArea.getText())){
+			JOptionPane.showMessageDialog(null, "계산 후 저장");
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = sdf.format(System.currentTimeMillis());
+			String url = "jdbc:mysql://127.0.0.1/testdb";
+			String id = "testdba";
+			String password = "test1234";
+			PreparedStatement preparedStatement = null;
+			Connection connection = null;
 				
-				String sql = "INSERT INTO pokemon(no, name, level, hp, ap, regdate) VALUES(?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO pokemon(no, name, level, hp, ap, regdate) VALUES(?, ?, ?, ?, ?, ?)";
 				
+			try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+				
+			connection = DriverManager.getConnection(url, id, password);
+					
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, 0);
+				preparedStatement.setString(2, nameField.getText());
+				preparedStatement.setInt(3, Integer.parseInt(levelField.getText()));
+				preparedStatement.setInt(4, Integer.parseInt(hpArea.getText()));
+				preparedStatement.setDouble(5, Double.parseDouble(apArea.getText()));
+				preparedStatement.setString(6, date);
+					
+				preparedStatement.executeUpdate();
+				JOptionPane.showMessageDialog(null, nameField.getText() + "  저장완료");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "중복된 포켓몬");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (NullPointerException e1) {
+				e1.printStackTrace();
+			} catch (NumberFormatException e1) {
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "레벨 입력 후 계산을 누르세요.");
+			} finally { // 접속 종료
 				try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				
-				connection = DriverManager.getConnection(url, id, password);
-					
-					preparedStatement = connection.prepareStatement(sql);
-					preparedStatement.setInt(1, 0);
-					preparedStatement.setString(2, nameField.getText());
-					preparedStatement.setInt(3, Integer.parseInt(levelField.getText()));
-					preparedStatement.setInt(4, Integer.parseInt(hpArea.getText()));
-					preparedStatement.setDouble(5, Double.parseDouble(apArea.getText()));
-					preparedStatement.setString(6, date);
-					
-					preparedStatement.executeUpdate();
-					JOptionPane.showMessageDialog(null, nameField.getText() + "  저장완료");
+					if (preparedStatement != null)
+						preparedStatement.close();
+					if (connection != null)
+						connection.close();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "중복된 포켓몬");
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (NullPointerException e1) {
-					e1.printStackTrace();
-				} catch (NumberFormatException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "레벨 입력 후 계산을 누르세요.");
-				} 
-				finally {
-					// 접속 종료
-					try {
-						if (preparedStatement != null)
-							preparedStatement.close();
-						if (connection != null)
-							connection.close();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
 				}
 			}
-			
-		}
+		}	
+	}
 	});
 }
 
