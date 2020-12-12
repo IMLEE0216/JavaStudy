@@ -206,6 +206,8 @@ public class Pokemon03GUI extends JFrame {
 
 	private void initCenterPanel() {
 		centerPanel.setLayout(new GridLayout(4, 2));
+		hpArea.setText("0");
+		apArea.setText("0");
 		centerPanel.add(nameLabel);
 		centerPanel.add(nameField);
 		centerPanel.add(levelLabel);
@@ -260,7 +262,8 @@ private void initSouthPanel() {
 		 || levelField.getText().equals(Integer.toString(0)) 
 		 || levelField.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "저장 할 수 없음");
-		} else if (Integer.parseInt(levelField.getText())*100 != Integer.parseInt(hpArea.getText())){
+		} else if (Integer.parseInt(levelField.getText())*100 != Integer.parseInt(hpArea.getText()) 
+		 || "0" == hpArea.getText()){
 			JOptionPane.showMessageDialog(null, "계산 후 저장");
 		} else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
