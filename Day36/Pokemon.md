@@ -64,68 +64,69 @@ public class Test01 {
 			}
 		}
 	}
+```
+```java
+private void menu01() { // 포켓몬 추가
+	String url = "jdbc:mysql://127.0.0.1/testdb";
+	preparedStatement = null;
+	connection = null;
 
-	private void menu01() { // 포켓몬 추가
-		String url = "jdbc:mysql://127.0.0.1/testdb";
-		preparedStatement = null;
-		connection = null;
+	while (true) {
+		try {
+			String pkname = JOptionPane.showInputDialog("포켓몬 이름").trim();
+			if (pkname.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "포켓몬 이름을 입력하세요.");
+				break;
+			}
 
-		while (true) {
+			int level = Integer.parseInt(JOptionPane.showInputDialog("레벨"));
+			if (level <= 0) {
+				JOptionPane.showMessageDialog(null, "정수 값의 레벨을  입력하세요.");
+				break;
+			}
+
+			int hp = level * 100;
+			double ap = level * 0.5;
+			sql = "INSERT INTO pokemon(no, name, level, hp, ap, regdate) VALUES(?, ?, ?, ?, ?, DEFAULT)";
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			connection = DriverManager.getConnection(url, ID, PASSWORD);
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, 0);
+			preparedStatement.setString(2, pkname);
+			preparedStatement.setInt(3, level);
+			preparedStatement.setInt(4, hp);
+			preparedStatement.setDouble(5, ap);
+
+			preparedStatement.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, pkname + "  저장완료");
+			break;
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "중복된 포켓몬");
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "정수 값의 레벨 입력");
+			break;
+//			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				String pkname = JOptionPane.showInputDialog("포켓몬 이름").trim();
-				if (pkname.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "포켓몬 이름을 입력하세요.");
-					break;
-				}
-
-				int level = Integer.parseInt(JOptionPane.showInputDialog("레벨"));
-				if (level <= 0) {
-					JOptionPane.showMessageDialog(null, "정수 값의 레벨을  입력하세요.");
-					break;
-				}
-
-				int hp = level * 100;
-				double ap = level * 0.5;
-				sql = "INSERT INTO pokemon(no, name, level, hp, ap, regdate) VALUES(?, ?, ?, ?, ?, DEFAULT)";
-
-				Class.forName("com.mysql.cj.jdbc.Driver");
-
-				connection = DriverManager.getConnection(url, ID, PASSWORD);
-
-				preparedStatement = connection.prepareStatement(sql);
-				preparedStatement.setInt(1, 0);
-				preparedStatement.setString(2, pkname);
-				preparedStatement.setInt(3, level);
-				preparedStatement.setInt(4, hp);
-				preparedStatement.setDouble(5, ap);
-
-				preparedStatement.executeUpdate();
-
-				JOptionPane.showMessageDialog(null, pkname + "  저장완료");
-				break;
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (connection != null)
+					connection.close();
 			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, "중복된 포켓몬");
 				e.printStackTrace();
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "정수 값의 레벨 입력");
-				break;
-//				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (preparedStatement != null)
-						preparedStatement.close();
-					if (connection != null)
-						connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
 			}
 		}
-	} // menu01
+	}
+} // menu01
 
 private void menu02() { // 번호로 검색
 	try {
