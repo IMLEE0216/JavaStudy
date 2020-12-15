@@ -31,6 +31,7 @@ public class Test01 {
 			switch (select) {
 			case "0":
 				JOptionPane.showMessageDialog(null, "프로그램을 종료합니다.");
+			
 				break menu;
 			case "1":
 				menu01();
@@ -57,6 +58,15 @@ public class Test01 {
 				JOptionPane.showMessageDialog(null, "다시 입력하세요.");
 				break;
 			}
+			
+		}
+		try {
+			if (preparedStatement != null)
+				preparedStatement.close();
+			if (connection != null)
+				connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 //=========================================================================================================
@@ -109,16 +119,8 @@ public class Test01 {
 //				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					if (preparedStatement != null)
-						preparedStatement.close();
-					if (connection != null)
-						connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			} 
+			
 		}
 	} // menu01
 
@@ -156,16 +158,8 @@ public class Test01 {
 			JOptionPane.showMessageDialog(null, "메뉴로 돌아갑니다.");
 			return;
 //			e.printStackTrace();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+		
 	} // menu02
 
 	private void menu03() { // 이름으로 검색
@@ -204,15 +198,6 @@ public class Test01 {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	} // menu03
 
@@ -244,16 +229,7 @@ public class Test01 {
 			return;
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 	} // menu04
 
 	private void menu05() { // 레벨업 이름으로
@@ -282,16 +258,7 @@ public class Test01 {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "미등록 포켓몬 입니다.");
 			return;
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 	}// menu05
 
 	private void menu06() { // 모두 레벨업
@@ -304,16 +271,7 @@ public class Test01 {
 			getCurrentPokemons();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 	}// menu06
 
 	private String getCurrentPokemons() { //포켓몬 현황
@@ -334,16 +292,7 @@ public class Test01 {
 			JOptionPane.showMessageDialog(null, message.toString());
 		} catch(Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		
 		return message.toString();
 	}
